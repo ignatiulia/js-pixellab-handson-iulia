@@ -1,52 +1,54 @@
 (function () {
+  // no hoist
   document.addEventListener('DOMContentLoaded', function () {
     const showButton = document.querySelector('#showButton');
     const toggleEventButton = document.querySelector('#toggleEventButton');
-    const removeButton = document.querySelectorSelector('#removeButton');
+    const removeButton = document.getElementById('removeButtons');
     let eventBound = true;
 
     showButton.addEventListener('click', showAlert);
     showMessage('Alerta va fi afisata');
 
     removeButton.addEventListener('click', function () {
-      if (!confirm('Stergem butoanele?')) {
+      if (confirm('Stergem butoanele?') !== true) {
         return;
       }
 
-      toggleEventButton.remove();
       showButton.remove();
+      toggleEventButton.remove();
     });
-    toggleEventButton.addEventListener('click', function () {
-      let message = '';
-      let label = '';
 
-      if (eventBound) {
+    toggleEventButton.addEventListener('click', function () {
+      if (eventBound === true) {
         showButton.removeEventListener('click', showAlert);
         eventBound = false;
-        message = 'Porneste afisarea';
-        label = 'Alerta va fi afisata';
+        this.innerText = 'Porneste afisarea';
+        showMessage('Alerta NU va fi afisata');
       } else {
-        showButton.removeEventListener('click', showAlert);
+        showButton.addEventListener('click', showAlert);
         eventBound = true;
-        message = 'Opreste afisarea';
-        label = 'Alerta NU va fi afisata';
+        this.innerText = 'Opreste afisarea';
+        showMessage('Alerta va fi afisata');
       }
-
-      this.innerText = message;
-      showMessage(label);
     });
 
+    // function functions are hoisted
     function showAlert() {
-      alert('Butonul a fost pasat');
+      alert('Butonul a fost apasat');
     }
 
-    function showMessage(message) {
-      let paragraphElemnt = document.querySelector('.message');
+    function showMessage(message = '') {
+      const cssClass = 'message';
+      let paragraphElement = document.querySelector(`.${cssClass}`);
 
-      paragraphElemnt.innerText = message;
-      paragraphElemnt.classList.add('message');
+      if (paragraphElement === null) {
+        paragraphElement = document.createElement('p');
+        paragraphElement.classList.add(cssClass);
 
-      document.body.append(paragraphElemnt);
+        document.body.append(paragraphElement);
+      }
+
+      paragraphElement.innerText = message;
     }
   });
 })();

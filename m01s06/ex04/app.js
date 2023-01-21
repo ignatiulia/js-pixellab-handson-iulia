@@ -15,7 +15,7 @@
     stage.addEventListener('mouseout', () => {
       const message = 'Mouseul nu este pe scena';
       console.log(message);
-      showMessage(message);
+      showMessage(message, 'message');
     });
 
     // function functions are hoisted
