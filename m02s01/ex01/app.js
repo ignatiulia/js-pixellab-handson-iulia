@@ -79,16 +79,16 @@ const opel = new Car('Opel', 'red', 4, 3);
 
 const cars = [audi, opel];
 
-cars.forEach(function (car) {
+cars.forEach((car) => {
   console.log(
     `Masina era marca ${car.make} si se deplasa cu ${car.speed} km/h.`,
   );
 
-  car.setSpeed((car.speed -= 5));
-
-  if (car.speed < 0) {
-    car.speed = 0;
-  }
+  car.decelerate;
+  car.decelerate;
+  car.decelerate;
+  car.decelerate;
+  car.decelerate;
 
   console.log(`Viteza noua este ${car.speed} km/h.`);
   // aici nu cred ca e ok ca nu imi inverzeste pixelltabul
