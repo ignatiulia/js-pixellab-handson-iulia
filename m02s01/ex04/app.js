@@ -1,4 +1,7 @@
 class Car {
+  areHazardsOn = false;
+  areLightsOn = true;
+
   constructor(
     left = 0,
     top = 0,
@@ -16,6 +19,8 @@ class Car {
     this.capColor = capColor;
     this.bodyColor = bodyColor;
     this.roofColor = roofColor;
+
+    this.intervalId = -1;
 
     this.frame = document.createElement('div');
     this.frame.classList.add('frame');
@@ -76,10 +81,12 @@ class Car {
   turnLightsOn() {
     // this.lightFront.style.backgroundColor = 'yellow';
     this.lightsFront.classList.add('light--on');
+    this.areLightsOn = true;
   }
 
   turnLightsOff() {
     this.lightFront.classList.remove('light--on');
+    this.areLightsOn = false;
   }
 
   // Creeaza metode numite engageBreak() si disenagageBreak() care vor aprinde respectiv stinge farul din spate.
@@ -87,17 +94,30 @@ class Car {
 
   disengageBreak() {
     this.lightBack.classList.remove('light-on');
+
+    return this;
   }
 
   engageBreak() {
     this.lightBack.classList.add('light-on');
+
+    return this;
   }
 
   toggleHazards() {
-    this.lightFront.classList.add('light--on');
-    this.areHazardsOn = true;
-
-    setInterval(this.toggleHazards, 1000);
+    if (this.areHazardsOn === true) {
+      clearInterval(this.intervalId);
+      this.areHazardsOn = false;
+    } else {
+      this.intervalId = setInterval(() => {
+        if (this.areLightsOn === true) {
+          this.turnLightsOff;
+        } else {
+          this.turnLightsOn();
+        }
+      }, 1000 * 60 * 60);
+      this.areHazardsOn = true;
+    }
 
     return this;
   }
