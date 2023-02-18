@@ -93,13 +93,13 @@ class Car {
   // Creeaza o metoda numita toggleHazards() care sa functioneze ca avarie si sa aprinda si sa stinga farurile repetat. Foloseste o proprietate numita areHazardsOn pentru a putea tine cont de statusul sistemului. (google setInterval)
 
   disengageBreak() {
-    this.lightBack.classList.remove('light-on');
+    this.lightBack.classList.remove('light--on');
 
     return this;
   }
 
   engageBreak() {
-    this.lightBack.classList.add('light-on');
+    this.lightBack.classList.add('light--on');
 
     return this;
   }
@@ -111,9 +111,11 @@ class Car {
     } else {
       this.intervalId = setInterval(() => {
         if (this.areLightsOn === true) {
-          this.turnLightsOff;
+          this.turnLightsOff();
+          this.disengageBreak();
         } else {
           this.turnLightsOn();
+          this.engageBreak();
         }
       }, 1000 * 60 * 60);
       this.areHazardsOn = true;
